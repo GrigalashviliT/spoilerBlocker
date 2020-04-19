@@ -1,0 +1,10 @@
+.body {
+    width: 270px;
+    align-content: center;
+    justify-content: center;
+}
+
+.title {
+    text-align: center;
+    font-size: 20px;
+}

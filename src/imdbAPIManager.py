@@ -20,7 +20,10 @@ def get_top_movies():
 
     r = requests.get(url = URL+str("/get-top-rated-movies"), headers=HEADERS)
 
-    data = r.json()
+    try:
+        data = r.json()
+    except:
+        print("An exception occured")
 
     for elem in data:
         film_id = str(elem["id"])
@@ -32,8 +35,10 @@ def get_top_movies():
 def get_synopses(film_id):
     r = requests.get(url = URL+str("/get-synopses"), params={"tconst":film_id}, headers=HEADERS)
 
-    print(film_id)
-    data = r.json()
+    try:
+        data = r.json()
+    except:
+        print(film_id)
 
     if (data is None) or (len(data) == 0):
         print("null or empty " + film_id)

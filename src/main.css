@@ -1,6 +1,7 @@
 html, body {
     display: block;
     width: 300px;
+    height: 350px;
 }
 
 .search-box {
@@ -73,11 +74,58 @@ html, body {
     transition: top 300ms ease-out, right 300ms ease-out, opacity 300ms ease-out;
 }
 
+.blocked-films {
+    position: relative;
+    width: 200px;
+    margin-left: 50px;
+}
+ 
+.blocked-films-head {
+    font: 400 25px sans-serif;
+    color: rgb( 245,197,24 );
+}
+
+.blocked-films-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.blocked-films-list li {
+    font: 200 18px sans-serif;
+    border-bottom: 1px solid #ccc;
+    color: #000;
+    display: block;
+    width: 200px;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+.blocked-films-list li:last-child {
+    border: none;
+}
+
+.blocked-films-list li:hover {
+    font-size: 20px;
+    background: #f6f6f6;
+    color: rgb( 245,197,24 )
+}
+
+.remove-button {
+    float: right;
+    display: none;
+    cursor: pointer;
+}
+
+.blocked-films-list li:hover .remove-button {
+    display: inline;
+    color: #000;
+}
+
 .loading-circle {
     display: none;
     position: fixed;
     margin-left: 125px;
-    margin-top: 110px;
+    margin-top: 125px;
     transform: translateZ(1px);
 }
 
@@ -110,7 +158,7 @@ html, body {
 .found-films {
     display: inline-block;
     align-self: center;
-    margin-block-start: -25px;
+    margin-block-start: -10px;
 }
 
 .found-films li {

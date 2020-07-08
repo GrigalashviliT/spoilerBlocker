@@ -4,15 +4,32 @@ var searchForm = document.querySelector('#search-form')
 var searchInput = document.querySelector('.search-input')
 var closeButton = document.querySelector('.close-button')
 
+var storedFilms = {}
+var storedFilmsString = localStorage.getItem('stored-films')
+if(storedFilmsString != null) {
+    storedFilms = JSON.parse(storedFilmsString)
+}
+
+updateBlockedFilms()
+
+function updateBlockedFilms() {
+    $('.blocked-films-list').empty()
+    for (const [key, value] of Object.entries(storedFilms)) {
+        $('.blocked-films-list').append(`<li>` + value + `<b class='remove-button' onClick='removeFilm(this)' value=` + key + `>x</b></li>`)
+    }
+}
+
 closeButton.addEventListener('click', () => {
     searchInput.value = '';
     $('.found-films').empty()
     $('.loading-circle').hide()
+    $('.blocked-films').show()
 });
 
 searchForm.addEventListener('submit', () => {
     $('.found-films').empty()
     $('.loading-circle').show()
+    $('.blocked-films').hide()
     searchFilmByTitle();
     event.preventDefault();
 });
@@ -47,10 +64,10 @@ function processResponse(result) {
         var film = result[i]
 
         var element = `
-        <li class='found-film'>
+        <li class='found-film' onClick='addToBlockedFilms(this)'>
             <div class='found-film-view'>
-                <img class='film-picture' src="` + film.image.url + `">
-                <div class='film-description'>
+                <img class='film-picture' src=` + film.image.url + `>
+                <div class='film-description' value=` + film.id.split('/')[2] + `>
                     <p class='film-title'>` + film.title + `</p>
                     <p class='film-year'>` + film.year + `</p>
                 </div>
@@ -61,4 +78,24 @@ function processResponse(result) {
     }
 
     $('.loading-circle').hide()
+}
+
+function addToBlockedFilms(filmDiv) {
+    var filmTitle = filmDiv.children[0].children[1].children[0].textContent
+    var filmId = filmDiv.children[0].children[1].attributes.value.value
+    console.log(filmId)
+    storedFilms[filmId] = filmTitle
+    localStorage.setItem('stored-films', JSON.stringify(storedFilms));
+    searchInput.value = '';
+    $('.found-films').empty()
+    $('.blocked-films').show()
+    updateBlockedFilms()
+}
+
+function removeFilm(element) {
+    var filmId =  element.attributes.value.value
+    console.log(filmId)
+    delete(storedFilms[filmId])
+    localStorage.setItem('stored-films', JSON.stringify(storedFilms))
+    updateBlockedFilms()
 }

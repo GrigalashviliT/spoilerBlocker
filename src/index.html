@@ -3,14 +3,21 @@
     <head>
         <title>SpoilerBlocker</title>
         <link rel='stylesheet' href='main.css'>
-        <script src='spoilerBlocker.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     </head>
 
     <body>
-        <div class='body'>
-            <img src="icons/icon-128.png" width="250px">
-            <h1 class='title'>spoilerBlocker</h1>
-        </div>
+        <form id='search-form'>
+            <div class='search-box'>
+                <input class='search-input' type='text' placeholder=' '/>
+                <span class='close-button'></span class">
+            </div>
+        </form>    
+
+        <div class="loading-circle"><div></div></div>
+        <ul class="found-films"></ul>
     </body>
+
+    <script src='spoilerBlocker.js'></script>
 
 </html>

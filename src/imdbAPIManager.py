@@ -22,14 +22,14 @@ def get_top_movies():
 
     try:
         data = r.json()
+        for elem in data:
+            film_id = str(elem["id"])
+            last_index = len(film_id) - 1
+            st = film_id[(film_id.find('/', 1, last_index)) + 1:last_index]
+            result.append(st)
     except:
         print("An exception occured")
 
-    for elem in data:
-        film_id = str(elem["id"])
-        last_index = len(film_id) - 1
-        st = film_id[(film_id.find('/', 1, last_index)) + 1:last_index]
-        result.append(st)
     return result
 
 def get_synopses(film_id):
@@ -37,11 +37,11 @@ def get_synopses(film_id):
 
     try:
         data = r.json()
+        if (data is None) or (len(data) == 0):
+            print("null or empty " + film_id)
+            return ""
+        return data[0]["text"]
     except:
         print(film_id)
 
-    if (data is None) or (len(data) == 0):
-        print("null or empty " + film_id)
-        return ""
-    return data[0]["text"]
-
+    return ""

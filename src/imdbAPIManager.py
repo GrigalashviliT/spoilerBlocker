@@ -28,8 +28,7 @@ def get_top_movies():
             st = film_id[(film_id.find('/', 1, last_index)) + 1:last_index]
             result.append(st)
     except:
-        print("An exception occured")
-
+        print("An exception Occured in get_top_movies")
     return result
 
 def get_synopses(film_id):
@@ -42,6 +41,15 @@ def get_synopses(film_id):
             return ""
         return data[0]["text"]
     except:
-        print(film_id)
+        print("An exception Occured in get_synopses where id = " + film_id)
 
     return ""
+
+def get_seasons(tv_show_id):
+    r = requests.get(url = URL+str("title/get-seasons"), params={"tconst":tv_show_id}, headers=HEADERS)
+
+    try:
+        data = r.json()
+        return data
+    except:
+        print("An exception Occured in get_seasons whre tv_show_id = " + str(tv_show_id))

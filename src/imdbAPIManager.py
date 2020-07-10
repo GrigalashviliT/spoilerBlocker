@@ -46,10 +46,24 @@ def get_synopses(film_id):
     return ""
 
 def get_seasons(tv_show_id):
-    r = requests.get(url = URL+str("title/get-seasons"), params={"tconst":tv_show_id}, headers=HEADERS)
+    r = requests.get(url = URL+str("/get-seasons"), params={"tconst":tv_show_id}, headers=HEADERS)
 
     try:
+
         data = r.json()
-        return data
+        # print(data)
+        seasons = []
+        for season in data:
+
+            episode_ids = []
+            for episode in season["episodes"]:
+
+                episode_id = episode["id"]
+                last_index = len(episode_id) - 1
+                imdb_id = episode_id[(episode_id.find('/', 1, last_index)) + 1:last_index]
+                episode_ids.append(imdb_id)
+            seasons.append(episode_ids)
+        return seasons
     except:
         print("An exception Occured in get_seasons whre tv_show_id = " + str(tv_show_id))
+    return []

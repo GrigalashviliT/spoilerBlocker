@@ -1,7 +1,7 @@
 html, body {
     display: block;
     width: 300px;
-    height: 370px;
+    height: 350px;
 }
 
 .search-box {
@@ -108,7 +108,7 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-inline-box;
-    max-width: 70%;
+    max-width: 95%;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }

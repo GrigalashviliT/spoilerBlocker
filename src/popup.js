@@ -15,7 +15,7 @@ updateBlockedFilms()
 function updateBlockedFilms() {
     $('.blocked-films-list').empty()
     for (const [key, value] of Object.entries(storedFilms)) {
-        $('.blocked-films-list').append(`<li>` + value + `<b class='remove-button' onClick='removeFilm(this)' value=` + key + `>x</b></li>`)
+        $('.blocked-films-list').append(`<li><i class=blocked-film-title>` + value + `</i><b class='remove-button' onClick='removeFilm(this)' value=` + key + `>x</blocked-film-title></li>`)
     }
 }
 

@@ -26,15 +26,10 @@
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["packages/browser-polyfill.js", "content.js"],
-        "run_at": "document_idle"
+        "js": ["packages/jquery.js", "content.js"],
+        "run_at": "document_start"
       }
     ],
-
-    "background": {
-      "persistent": false,
-      "scripts": ["packages/browser-polyfill.js", "background.js"]
-    },
 
     "permissions": [
       "activeTab"

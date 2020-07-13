@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', () => {
     checkCurrentContent()
 });
 
@@ -6,25 +6,30 @@ window.onscroll = function() {
     checkCurrentContent()
 }
 
-var lastSentence = ''
+var checkedSentences = 0
+var warningHTML = `<div style='color: red'>&#9888; Spoiler</div>`
 
 function checkCurrentContent() {
-    var textOnTab = document.body.innerText
-
-    console.log(lastSentence)
-    if(lastSentence !== '') {
-        textOnTab = textOnTab.substr(textOnTab.indexOf(lastSentence))
+    var isPaused = localStorage.getItem('isPaused')
+    if(isPaused === 'true') {
+        return
     }
 
+    var textOnTab = document.body.innerText
     sentences = textOnTab.split('\n')
-    sentences.forEach(sentence => {
-        // check if sentence is spoiler
-        var isSpoiler = false
 
-        if (isSpoiler) {
-            $(':contains(' + sentence + ')').css('color', 'red')
+    // check which sentences are spoilers
+    var isSpoiler = []
+
+    var sentencesToCheck = sentences.length - checkedSentences
+    for(var i = 0; i < sentencesToCheck; i++) {
+        if(isSpoiler[i]) {
+            var xpath = `//text()[. = '` + sentences[checkedSentences + i] + `']`
+            var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+            if (matchingElement != null) {
+                matchingElement.parentNode.innerHTML = warningHTML
+            }
         }
-
-        lastSentence = sentence
-    });
+    }
+    checkedSentences = sentences.length
 }

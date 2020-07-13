@@ -26,8 +26,6 @@ def process_data(film_id, processing):
 
     w.write(doc)
 
-    # save_data_in_file("ml\ml" + str(film_id) + ".txt", text)
-
 def process_initial_data(film_ids, processing):
 
 
@@ -58,14 +56,21 @@ def process_tv_show_data(tv_show_id, processing):
     
     process_data(tv_show_id, processing)
 
+def retreive_data(imdb_id):
+
+    seasons = imdbAPIManager.get_seasons(imdb_id)
+
+    if (seasons is None) or (len(seasons) == 0):
+        process_film_data(imdb_id)
+    else:
+        process_tv_show_data(imdb_id)
+
 def save_data_in_file(file, data):
 
     w = open(file, 'w')
     w.write(data)
 
 if __name__ == "__main__":
-
-
 
     processing = dataprocessing()
 

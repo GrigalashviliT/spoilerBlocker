@@ -35,7 +35,6 @@ class dataprocessing:
         for line in doc:
 
             if str(line).replace("'", '').lower() in self.pronouns:
-                # print(line, line._.coref_clusters)
 
                 if len(line._.coref_clusters) == 0:
                     continue

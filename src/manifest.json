@@ -20,14 +20,14 @@
             "19": "icons/icon-19.png",
             "38": "icons/icon-38.png"
         },  
-        "default_popup": "index.html"
+        "default_popup": "popup.html"
     },
 
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["spoilerBlocker.js"],
-        "run_at": "document_start"
+        "js": ["packages/jquery.js", "content.js"],
+        "run_at": "document_idle"
       }
     ],
 

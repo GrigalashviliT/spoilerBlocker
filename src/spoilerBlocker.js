@@ -1,1 +1,0 @@
-console.log("if you read this in console spoilerBlocker extension works")

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>SpoilerBlocker</title>
+        <link rel='stylesheet' href='popup.css'>
+        <script src='packages/jquery.js'></script>
+    </head>
+
+    <body>
+        <form id='search-form'>
+            <div class='search-box'>
+                <input class='search-input' type='text' placeholder=' '/>
+                <span class='close-button'></span class">
+            </div>
+        </form>
+
+        <div class = 'blocked-films'>
+            <h2 class='blocked-films-head'>INTERESTED IN:</h2>
+            <ul class='blocked-films-list'></ul>
+        </div>
+
+        <div class="loading-circle"><div></div></div>
+        <ul class="found-films"></ul>
+    </body>
+
+    <script src='popup.js'></script>
+</html>

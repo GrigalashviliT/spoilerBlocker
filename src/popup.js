@@ -1,13 +1,19 @@
 console.log("if you read this in console spoilerBlocker extension works")
 
-var searchForm = document.querySelector('#search-form')
+var searchForm = document.querySelector('.search-form')
 var searchInput = document.querySelector('.search-input')
 var closeButton = document.querySelector('.close-button')
+var pauseButton = document.querySelector('#pause')
 
 var storedFilms = {}
 var storedFilmsString = localStorage.getItem('stored-films')
 if(storedFilmsString != null) {
     storedFilms = JSON.parse(storedFilmsString)
+}
+
+var isPaused = localStorage.getItem('isPaused')
+if(isPaused == 'true') {
+    $('#pause').prop('checked', true)
 }
 
 updateBlockedFilms()
@@ -19,11 +25,28 @@ function updateBlockedFilms() {
     }
 }
 
+searchInput.addEventListener('click', () => {
+    $('.start-pause-button').hide(1100)
+});
+
+pauseButton.addEventListener('click', () => {
+    var isPaused = localStorage.getItem('isPaused')
+
+    if (isPaused == null) {
+        localStorage.setItem('isPaused', 'true')
+    } else if (isPaused == 'true') {
+        localStorage.setItem('isPaused', 'false')
+    } else {
+        localStorage.setItem('isPaused', 'true')
+    }
+});
+
 closeButton.addEventListener('click', () => {
     searchInput.value = '';
     $('.found-films').empty()
     $('.loading-circle').hide()
     $('.blocked-films').show()
+    $('.start-pause-button').show(1100)
 });
 
 searchForm.addEventListener('submit', () => {
@@ -89,6 +112,7 @@ function addToBlockedFilms(filmDiv) {
     searchInput.value = '';
     $('.found-films').empty()
     $('.blocked-films').show()
+    $('.start-pause-button').show(1100)
     updateBlockedFilms()
 }
 

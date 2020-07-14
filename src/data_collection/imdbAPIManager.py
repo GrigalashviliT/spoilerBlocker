@@ -1,11 +1,6 @@
 import requests 
 import CONSTANTS
 
-
-# get_top_rated_movies:
-
-
-
 def get_top_movies():
 
     result = ['tt1480055', 'tt1668746', 'tt1829962', 'tt1829963', 'tt1829964', 'tt1837862', 'tt1837863', 'tt1837864', 'tt1851398', 'tt1851397',
@@ -32,12 +27,10 @@ def get_synopses(film_id):
     try:
         data = r.json()
         if (data is None) or (len(data) == 0):
-            print("null or empty " + film_id)
             return ""
         return data[0]["text"]
     except:
         print("An exception Occured in get_synopses where id = " + film_id)
-
     return ""
 
 def get_seasons(tv_show_id):
@@ -46,7 +39,6 @@ def get_seasons(tv_show_id):
     try:
 
         data = r.json()
-        # print(data)
         seasons = []
         for season in data:
 

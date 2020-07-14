@@ -10,11 +10,18 @@ var checkedSentences = 0
 var warningHTML = `<div style='color: red'>&#9888; Spoiler</div>`
 
 function checkCurrentContent() {
-    var isPaused = localStorage.getItem('isPaused')
-    if(isPaused === 'true') {
-        return
-    }
+    chrome.storage.sync.get(['isPaused'], function(items) {
+        var isPaused = items['isPaused']
+        
+        if (isPaused) {
+            return
+        }
 
+        blockSpoilers()
+    });
+}
+
+function blockSpoilers() {
     var textOnTab = document.body.innerText
     sentences = textOnTab.split('\n')
 

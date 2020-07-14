@@ -11,10 +11,13 @@ if(storedFilmsString != null) {
     storedFilms = JSON.parse(storedFilmsString)
 }
 
-var isPaused = localStorage.getItem('isPaused')
-if(isPaused == 'true') {
-    $('#pause').prop('checked', true)
-}
+chrome.storage.sync.get(['isPaused'], function(items) {
+    var isPaused = items['isPaused']
+
+    if (isPaused) {
+        $('#pause').prop('checked', true)
+    }
+});
 
 updateBlockedFilms()
 
@@ -26,19 +29,19 @@ function updateBlockedFilms() {
 }
 
 searchInput.addEventListener('click', () => {
-    $('.start-pause-button').hide(1100)
+    $('.start-pause-button').hide(1500)
 });
 
 pauseButton.addEventListener('click', () => {
-    var isPaused = localStorage.getItem('isPaused')
+    chrome.storage.sync.get(['isPaused'], function(items) {
+        var isPaused = items['isPaused']
 
-    if (isPaused == null) {
-        localStorage.setItem('isPaused', 'true')
-    } else if (isPaused == 'true') {
-        localStorage.setItem('isPaused', 'false')
-    } else {
-        localStorage.setItem('isPaused', 'true')
-    }
+        if (isPaused) {
+            chrome.storage.sync.set({'isPaused': false})
+        } else {
+            chrome.storage.sync.set({'isPaused': true})
+        }
+    });
 });
 
 closeButton.addEventListener('click', () => {
@@ -46,7 +49,7 @@ closeButton.addEventListener('click', () => {
     $('.found-films').empty()
     $('.loading-circle').hide()
     $('.blocked-films').show()
-    $('.start-pause-button').show(1100)
+    $('.start-pause-button').show(1500)
 });
 
 searchForm.addEventListener('submit', () => {
@@ -112,7 +115,7 @@ function addToBlockedFilms(filmDiv) {
     searchInput.value = '';
     $('.found-films').empty()
     $('.blocked-films').show()
-    $('.start-pause-button').show(1100)
+    $('.start-pause-button').show(1500)
     updateBlockedFilms()
 }
 

@@ -54,3 +54,21 @@ def get_seasons(tv_show_id):
     except:
         print("An exception Occured in get_seasons whre tv_show_id = " + str(tv_show_id))
     return []
+
+def get_plots(film_id):
+
+    r = requests.get(url = CONSTANTS.URL+str("/get-plots"), params={"tconst":film_id}, headers=CONSTANTS.HEADERS)
+
+    try:
+
+        data = r.json()
+        plots = data["plots"]
+
+        text = ""
+        for plot in plots:
+            text += plot["text"]
+            text += '\n'
+        return text
+    except:
+        print("An exception occured in get_plots where film_id = " + film_id)
+    return ""

@@ -1,6 +1,7 @@
-var searchForm = document.querySelector('#search-form')
+var searchForm = document.querySelector('.search-form')
 var searchInput = document.querySelector('.search-input')
 var closeButton = document.querySelector('.close-button')
+var pauseButton = document.querySelector('#pause')
 
 var storedFilms = {}
 chrome.storage.sync.get(['storedFilms'], function(items) {
@@ -9,8 +10,16 @@ chrome.storage.sync.get(['storedFilms'], function(items) {
     if(storedFilmsString != null) {
         storedFilms = JSON.parse(storedFilmsString)
     }
-    
+
     updateBlockedFilms()
+});
+
+chrome.storage.sync.get(['isPaused'], function(items) {
+    var isPaused = items['isPaused']
+
+    if (isPaused) {
+        $('#pause').prop('checked', true)
+    }
 });
 
 function updateBlockedFilms() {
@@ -20,11 +29,28 @@ function updateBlockedFilms() {
     }
 }
 
+searchInput.addEventListener('click', () => {
+    $('.start-pause-button').hide(1500)
+});
+
+pauseButton.addEventListener('click', () => {
+    chrome.storage.sync.get(['isPaused'], function(items) {
+        var isPaused = items['isPaused']
+
+        if (isPaused) {
+            chrome.storage.sync.set({'isPaused': false})
+        } else {
+            chrome.storage.sync.set({'isPaused': true})
+        }
+    });
+});
+
 closeButton.addEventListener('click', () => {
     searchInput.value = '';
     $('.found-films').empty()
     $('.loading-circle').hide()
     $('.blocked-films').show()
+    $('.start-pause-button').show(1500)
 });
 
 searchForm.addEventListener('submit', () => {
@@ -89,6 +115,7 @@ function addToBlockedFilms(filmDiv) {
     searchInput.value = '';
     $('.found-films').empty()
     $('.blocked-films').show()
+    $('.start-pause-button').show(1500)
     updateBlockedFilms()
 }
 

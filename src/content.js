@@ -8,7 +8,7 @@ window.onscroll = function() {
 
 var checkedSentences = 0
 var warningHTML = `<div class='blocked-spoiler'>&#9888; Spoiler</div>`
-var batchSize = 20
+var batchSize = 30
 var threshHold = 0.7
 
 var storedFilms = {}
@@ -23,9 +23,11 @@ chrome.storage.sync.get(['storedFilms'], function(items) {
 function checkCurrentContent() {
     chrome.storage.sync.get(['isPaused'], function(items) {
         var isPaused = items['isPaused']
+        
         if (isPaused) {
             return
         }
+
         blockSpoilers()
     });
 }

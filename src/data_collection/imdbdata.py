@@ -65,6 +65,15 @@ def retreive_data(imdb_id):
     else:
         process_tv_show_data(imdb_id)
 
+def retrieve_test_data(film_ids, processing):
+
+    print("Started")
+    for film_id in film_ids:
+
+        text = imdbAPIManager.get_plots(film_id)
+        if len(text) > 0:
+            save_data_in_file(args['temp'] + '/' + film_id + '.txt', text)
+
 def save_data_in_file(file, data):
 
     w = open(file, 'w')

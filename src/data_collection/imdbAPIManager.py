@@ -3,7 +3,7 @@ import CONSTANTS
 
 def get_top_movies():
 
-    result = []
+    result = ['tt0185906', 'tt0306414', 'tt0475784', 'tt0903747', 'tt0944947', 'tt1475582', 'tt1796960', 'tt2356777', 'tt7366338']
 
     r = requests.get(url = CONSTANTS.URL+str("/get-top-rated-movies"), headers=CONSTANTS.HEADERS)
 

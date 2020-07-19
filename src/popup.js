@@ -1,16 +1,17 @@
-console.log("if you read this in console spoilerBlocker extension works")
-
 var searchForm = document.querySelector('#search-form')
 var searchInput = document.querySelector('.search-input')
 var closeButton = document.querySelector('.close-button')
 
 var storedFilms = {}
-var storedFilmsString = localStorage.getItem('stored-films')
-if(storedFilmsString != null) {
-    storedFilms = JSON.parse(storedFilmsString)
-}
+chrome.storage.sync.get(['storedFilms'], function(items) {
+    var storedFilmsString = items['storedFilms']
 
-updateBlockedFilms()
+    if(storedFilmsString != null) {
+        storedFilms = JSON.parse(storedFilmsString)
+    }
+    
+    updateBlockedFilms()
+});
 
 function updateBlockedFilms() {
     $('.blocked-films-list').empty()
@@ -83,9 +84,8 @@ function processResponse(result) {
 function addToBlockedFilms(filmDiv) {
     var filmTitle = filmDiv.children[0].children[1].children[0].textContent
     var filmId = filmDiv.children[0].children[1].attributes.value.value
-    console.log(filmId)
     storedFilms[filmId] = filmTitle
-    localStorage.setItem('stored-films', JSON.stringify(storedFilms));
+    chrome.storage.sync.set({'storedFilms': JSON.stringify(storedFilms)})
     searchInput.value = '';
     $('.found-films').empty()
     $('.blocked-films').show()
@@ -94,8 +94,7 @@ function addToBlockedFilms(filmDiv) {
 
 function removeFilm(element) {
     var filmId =  element.attributes.value.value
-    console.log(filmId)
     delete(storedFilms[filmId])
-    localStorage.setItem('stored-films', JSON.stringify(storedFilms))
+    chrome.storage.sync.set({'storedFilms': JSON.stringify(storedFilms)})
     updateBlockedFilms()
 }

@@ -42,6 +42,7 @@ from rasa.nlu.tokenizers.lm_tokenizer import LanguageModelTokenizer
 from rasa.nlu.utils.mitie_utils import MitieNLP
 from rasa.nlu.utils.spacy_utils import SpacyNLP
 from rasa.nlu.preprocessors.clean_text import CleanText
+from rasa.nlu.preprocessors.check_english import CheckEnglish
 
 from rasa.nlu.utils.hugging_face.hf_transformers import HFTransformersNLP
 from rasa.utils.common import class_from_module_path, raise_warning
@@ -94,7 +95,8 @@ component_classes = [
     EmbeddingIntentClassifier,
     # selectors
     ResponseSelector,
-    CleanText
+    CleanText,
+    CheckEnglish
 ]
 
 # Mapping from a components name to its class to allow name based lookup.

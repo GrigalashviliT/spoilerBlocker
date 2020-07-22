@@ -994,6 +994,14 @@ def create_app(
                 parsed_data = await app.agent.parse_message_using_nlu_interpreter(
                     data.get("text")
                 )
+
+                if len(parsed_data['text']) == 0 or len(parsed_data['text'].split()) < 3:
+                    parsed_data['intent']['confidence'] = 0
+                
+                elif parsed_data['english_words'] / parsed_data['non_english_words'] < 0.5:
+                    parsed_data['intent']['confidence'] = 0
+
+
             except Exception as e:
                 logger.debug(traceback.format_exc())
                 raise ErrorResponse(
@@ -1034,6 +1042,12 @@ def create_app(
                     )
 
                     print(parsed_data['intent'])
+                    if len(parsed_data['text']) == 0 or len(parsed_data['text'].split()) < 3:
+                        parsed_data['intent']['confidence'] = 0
+                    
+                    elif parsed_data['english_words'] / parsed_data['non_english_words'] < 0.5:
+                        parsed_data['intent']['confidence'] = 0
+
                     responce_data.append(parsed_data['intent'])
 
             except Exception as e:

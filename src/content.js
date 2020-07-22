@@ -42,11 +42,11 @@ async function blockSpoilers() {
 
         for(var k = 0; k < isSpoiler.length; k++) {
             if(isSpoiler[k].confidence > threshHold && isSpoiler[k].name in storedFilms) {
-                var xpath = `//text()[. = '` + curSentences[k] + `']`
+                var xpath = `//text()[. = "${curSentences[k]}"]`
                 var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
                 if (matchingElement != null) {
-                    var previousText = matchingElement.parentNode.innerHTML
-                    var newText = warningHTML.substr(0, 37) + storedFilms[isSpoiler[k].name] + warningHTML.substr(36)
+                    const previousText = matchingElement.parentNode.innerHTML
+                    const newText = warningHTML.substr(0, 37) + storedFilms[isSpoiler[k].name] + warningHTML.substr(36)
 
                     matchingElement.parentNode.onmouseover = function() {
                         this.innerHTML = previousText

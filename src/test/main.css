@@ -4,7 +4,7 @@ body {
     word-wrap: break-word;
     border-top: 4px solid;
 }
-
+​
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', serif;
 }
@@ -20,13 +20,26 @@ h1, h2, h3, h4, h5, h6 {
 .header-left p i {
     margin-right: 7px;
 }
-
+​
 .logo {
     margin: 40px auto;
     text-align: center;
 }
-
+​
 .header-right {
     margin: 52px auto;
     text-align: right;
 }
+​
+#logo {
+    font-size: 34px;
+    line-height: 76px;
+    min-width:200px
+  }
+  
+  h5.event-title {
+    line-height: 22px;
+    font-weight: 700;
+    font-size: 18px;
+    color: #8c489f;
+  }

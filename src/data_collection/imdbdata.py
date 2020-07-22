@@ -4,7 +4,10 @@ import neuralcoref
 import imdbAPIManager
 from processing import dataprocessing
 import argparse
-
+import requests
+import json
+import CONSTANTS
+import array as arr
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--data", type=str, required=True,
@@ -67,7 +70,6 @@ def retreive_data(imdb_id):
 
 def retrieve_test_data(film_ids, processing):
 
-    print("Started")
     for film_id in film_ids:
 
         text = imdbAPIManager.get_plots(film_id)

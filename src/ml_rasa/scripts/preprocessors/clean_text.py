@@ -13,7 +13,6 @@ from rasa.nlu.training_data import Message
 from rasa.nlu.training_data import TrainingData
 import string
 
-
 class CleanText(Component):
 
     provides = ["text"]
@@ -22,14 +21,13 @@ class CleanText(Component):
         # type: (TrainingData, RasaNLUModelConfig, **Any) -> None
 
         for example in training_data.training_examples:
+
             example.text = self.preprocess(example.text, 3)
 
             example.set("text", example.text)
 
-
     def process(self, message, **kwargs):
         # type: (Message, **Any) -> None
-
 
         count = self.english_letter_count(message.get('text'))
         message.set('english_words', count, add_to_output=True)
@@ -49,8 +47,6 @@ class CleanText(Component):
 
             text = text.replace(exp, '')
         
-
-
         line = text.split()
 
         text = ''

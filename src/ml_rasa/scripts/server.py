@@ -1001,7 +1001,6 @@ def create_app(
                 elif parsed_data['english_words'] / parsed_data['non_english_words'] < 0.5:
                     parsed_data['intent']['confidence'] = 0
 
-
             except Exception as e:
                 logger.debug(traceback.format_exc())
                 raise ErrorResponse(
